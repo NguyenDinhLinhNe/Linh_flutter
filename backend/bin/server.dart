@@ -8,9 +8,9 @@ import 'package:shelf_router/shelf_router.dart';
 // Configure routes.
 final _router = Router(notFoundHandler: _notFoundHandler)
   ..get('/', _rootHandler)
-  ..get('api/v1/check', _checkHandler)
-  ..get('api/v1/echo/<message>', _echoHandler)
-  ..post('api/v1/submit', _submitHandler);
+  ..get('/api/v1/echo/<message>', _echoHandler)
+  ..get('/api/v1/check', _checkHandler)
+  ..post('/api/v1/submit', _submitHandler);
 
 final _header = {'Content-Type' : 'application/json'};
 
