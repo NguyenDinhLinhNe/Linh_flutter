@@ -292,6 +292,7 @@ Future<void> sendAll() async{
               TextField(
                 controller : ageController,
                 decoration: const InputDecoration(labelText: 'Ngày sinh'),
+                // check xem bạn thuộc vào năm gì , ví dụ nhâm tí , giáp thân ...
               ),
               TextField(
                 controller : addressController,
@@ -300,6 +301,7 @@ Future<void> sendAll() async{
               TextField(
                 controller : phoneController,
                 decoration: const InputDecoration(labelText: 'Số điện thoại'),
+                // check xem sim của bạn là sim nào ( viettel or mobile or vinaphone )
               ),
               TextField(
                 controller : sexController,

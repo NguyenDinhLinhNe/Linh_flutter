@@ -86,9 +86,37 @@ Future<Response> _submitAge(Request req) async {
       // Chuyển chuỗi ngày sinh thành DateTime
       final birthDate = dateFormat.parse(birthDateStr);
 
+      final response;
       // Tính tuổi từ ngày sinh
       final currentDate = DateTime.now();
       int age = currentDate.year - birthDate.year;
+      if(currentDate.month > birthDate.month){
+        if(currentDate.day > birthDate.day){
+          final ngayConLai = (currentDate.month - birthDate.month) * 30 + currentDate.day - birthDate.day;
+          response = {'message' : 'Sinh nhật của bạn đã qua $ngayConLai ngày !'};
+        }
+        else{
+          final ngayConLai = (currentDate.month - birthDate.month) * 30 + birthDate.day - currentDate.day;
+          response = {'message' : 'Sinh nhật của bạn đã qua $ngayConLai ngày !'};
+        }
+      }
+      else if(currentDate.month == birthDate.month && currentDate.day == birthDate.day){
+        response = {'message' : 'Chúc mừng sinh nhật bạn !'};
+      }
+      else if(currentDate.month == birthDate.month){
+        if(currentDate.day > birthDate.day){
+          final ngayConLai = currentDate.day - birthDate.day;
+          response = {'message' : 'Sinh nhật của bạn đã qua $ngayConLai ngày !'};
+        }
+        else{
+          final ngayConLai = birthDate.day - currentDate.day;
+          response = {'message' : 'Còn $ngayConLai ngày nữa là tới sinh nhật bạn !'};
+        }
+      }
+      else{
+          final ngayConLai = (birthDate.month - currentDate.month) * 30 + birthDate.day - currentDate.day;
+          response = {'message' : 'Còn $ngayConLai ngày nữa là tới sinh nhật bạn rồi !'};
+      }
 
       // Kiểm tra nếu sinh nhật chưa qua trong năm nay
       if (currentDate.month < birthDate.month ||
@@ -97,7 +125,6 @@ Future<Response> _submitAge(Request req) async {
       }
 
       // Trả về kết quả tuổi
-      final response = {'message': 'Tuổi của bạn là : $age'};
       return Response.ok(
         json.encode(response),
         headers: _header,
